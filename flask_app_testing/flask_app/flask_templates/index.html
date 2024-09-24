@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask App</title>
+</head>
+<body>
+    <h1>Welcome to the Flask App</h1>
+    <form method="POST">
+        <label for="model">Model:</label>
+        <select name="model">
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+        </select><br>
+        <label for="user_input">Input Text:</label>
+        <textarea name="user_input"></textarea><br>
+        <label for="action">Action:</label>
+        <select name="action">
+            <option value="summarize">Summarize</option>
+            <option value="summarize_and_generate_image">Summarize and Generate Image</option>
+        </select><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

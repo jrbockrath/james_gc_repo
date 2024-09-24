@@ -1,0 +1,14 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "app1.fullname" . }}  # Using a more descriptive name template if available
+  labels:
+    {{- include "app1.labels" . | nindent 4 }}  # Including standard labels if defined
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "app1.fullname" . }}  # Ensuring consistent naming with the deployment
+  minReplicas: {{ .Values.autoscaling.minReplicas | default 1 }}  # Providing a default value of 1
+  maxReplicas: {{ .Values.autoscaling.maxReplicas | default 5 }}  # Providing a default value of 5
+  targetCPUUtilizationPercentage: {{ .Values.autoscaling.targetCPUUtilizationPercentage | default 80 }}  # Defaulting to 80%

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vertex AI Model Selector</title>
+</head>
+<body>
+    <h1>Choose a Vertex AI Model</h1>
+    <form method="POST">
+        <label for="model">Select Model:</label>
+        <select name="model" id="model">
+            {% for key, value in models.items() %}
+                <option value="{{ key }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="user_input">Input Text:</label>
+        <textarea name="user_input" rows="4" cols="50"></textarea>
+        <br>
+        <label for="action">Select Action:</label>
+        <select name="action" id="action">
+            <option value="single">Single Model Call</option>
+            <option value="summarize_and_generate_image">Summarize and Generate Image</option>
+        </select>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,58 @@
+image:
+  repository: gcr.io/heroic-oven-430715-i1/app1
+  tag: v1
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: app1.yourdomain.com
+      paths: 
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: app1-tls
+      hosts:
+        - app1.yourdomain.com
+
+cronofySecrets:
+  clientId: ""
+  clientSecret: ""
+
+env:
+  PROJECT_ID: "heroic-oven-430715-i1"
+  LOCATION: "us-central1"
+  MODEL_NAME: "gemini-1.5-pro"
+  MODEL_VERSION: "001"
+
+autoscaling:
+  enabled: false  # Set to true if you want to enable autoscaling
+  minReplicas: 1  # Minimum number of replicas
+  maxReplicas: 5  # Maximum number of replicas
+  targetCPUUtilizationPercentage: 80  # Target CPU utilization for scaling
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

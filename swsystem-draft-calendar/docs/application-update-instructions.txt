@@ -1,0 +1,18 @@
+Here are the steps to update your app.py and redeploy the application:
+
+Update the app.py File: Make your changes in app1/app.py.
+
+Update requirements.txt If Necessary: Ensure all dependencies used in the updated app.py are listed.
+
+Rebuild and Push the Docker Image:
+
+bash
+Copy code
+docker build --no-cache -t gcr.io/heroic-oven-430715-i1/app1:v2 ./app1
+docker push gcr.io/heroic-oven-430715-i1/app1:v2
+Deploy the Updated Application:
+
+bash
+Copy code
+helm upgrade --install app1 ./app1 --namespace app1-namespace --set image.tag=v2
+Replace v2 with the appropriate new version tag you choose for your Docker image.

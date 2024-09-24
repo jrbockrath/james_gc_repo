@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vertex AI Model Results</title>
+</head>
+<body>
+    <h1>Results</h1>
+    {% if summary %}
+        <h2>Summary</h2>
+        <p>{{ summary }}</p>
+    {% endif %}
+    {% if image %}
+        <h2>Generated Image Description</h2>
+        <p>{{ image }}</p>
+    {% endif %}
+    {% if generated_content %}
+        <h2>Generated Content</h2>
+        <p>{{ generated_content }}</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>

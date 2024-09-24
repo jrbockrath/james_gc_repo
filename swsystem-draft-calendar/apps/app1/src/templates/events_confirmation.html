@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Events</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Confirm Events</h1>
+    <ul id="eventList">
+    {% for event in events %}
+        <li>
+            <input type="checkbox" checked>
+            {{ event.date }} - {{ event.purpose }}
+        </li>
+    {% endfor %}
+    </ul>
+    <input type="email" id="userEmail" placeholder="Your email address">
+    <button onclick="createEvents()">Create Events</button>
+
+    <script>
+    function createEvents() {
+        const events = [];
+        document.querySelectorAll('#eventList li input:checked').forEach(checkbox => {
+            const [date, purpose] = checkbox.parentElement.textContent.trim().split(' - ');
+            events.push({ date, purpose });
+        });
+        const email = document.getElementById('userEmail').value;
+        
+        axios.post('/create_events', { events, email })
+            .then(response => {
+                alert('Events created successfully!');
+            })
+            .catch(error => {
+                alert('Error creating events: ' + error.response.data.error);
+            });
+    }
+    </script>
+</body>
+</html>

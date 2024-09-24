@@ -1,0 +1,35 @@
+app:
+  name: app2
+  tag: v1
+
+image:
+  repository: gcr.io/heroic-oven-430715-i1/app2
+  tag: v1
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"  # Set the IngressClassName here
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: app2.v2.app.swipeleft.ai
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - hosts:
+      - app2.v2.app.swipeleft.ai
+      secretName: app2-tls
+
+serviceAccount:
+  create: false
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 50

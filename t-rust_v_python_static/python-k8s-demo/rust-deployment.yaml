@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-k8s-demo
+  labels:
+    app: k8s-demo
+    version: rust
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-demo
+      version: rust
+  template:
+    metadata:
+      labels:
+        app: k8s-demo
+        version: rust
+    spec:
+      containers:
+      - name: rust-k8s-demo
+        image: gcr.io/heroic-oven-430715-i1/rust-k8s-demo:v1
+        ports:
+        - containerPort: 8080
